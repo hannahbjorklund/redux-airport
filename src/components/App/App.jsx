@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 function App() {
@@ -11,10 +11,12 @@ function App() {
 
   const addAirline = (event) => {
     event.preventDefault();
+    console.log("Adding a new airline:", airlineInput);
     dispatch({
       type: 'ADD_NEW_AIRLINE',
       payload: airlineInput
     })
+    setAirlineInput('');
   }
 
   return (
@@ -29,7 +31,20 @@ function App() {
         />
         <button>Add Airline</button>
       </form>
-      <table>{/* Airlines should be listed here */}</table>
+      <table>
+        <thead>
+          <tr>
+            <th>Airline Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          {airlineList.map((airline) => {
+            return <tr>{airline}</tr>
+          })}
+          
+        </tbody>
+      </table>
     </div>
   );
 }
